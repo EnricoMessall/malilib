@@ -11,24 +11,22 @@ import org.lwjgl.opengl.GL12;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.living.player.InputPlayerEntity;
-import net.minecraft.client.entity.living.player.LocalPlayerEntity;
 import net.minecraft.client.interaction.ClientPlayerInteractionManager;
-import net.minecraft.client.network.handler.ClientNetworkHandler;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.menu.InventoryMenu;
 import net.minecraft.world.World;
 
-import malilib.mixin.access.MinecraftMixin;
 import malilib.util.position.HitResult;
 
 public class GameWrap
 {
+    public static Minecraft minecraft;
+
     public static Minecraft getClient()
     {
-        return MinecraftMixin.malilib_getMinecraft();
+        return minecraft;
     }
 
     @Nullable
@@ -56,6 +54,7 @@ public class GameWrap
         return player != null ? player.inventory : null;
     }
 
+    /* TODO in-20100223
     @Nullable
     public static InventoryMenu getPlayerInventoryContainer()
     {
@@ -69,6 +68,7 @@ public class GameWrap
         PlayerEntity player = getClient().player;
         return player != null ? player.menu : null;
     }
+    */
 
     public static ClientPlayerInteractionManager getInteractionManager()
     {
@@ -77,12 +77,14 @@ public class GameWrap
 
     public static void clickSlot(int syncId, int slotId, int mouseButton, boolean quickMove)
     {
+        /* TODO in-20100223
         ClientPlayerInteractionManager controller = getInteractionManager();
 
         if (controller != null)
         {
             controller.clickSlot(syncId, slotId, mouseButton, quickMove, getClientPlayer());
         }
+        */
     }
 
     public static double getPlayerReachDistance()
@@ -96,7 +98,6 @@ public class GameWrap
     {
         return getClient().getIntegratedServer();
     }
-    */
 
     @Nullable
     public static ClientNetworkHandler getNetworkConnection()
@@ -104,6 +105,7 @@ public class GameWrap
         InputPlayerEntity player = getClientPlayer();
         return player instanceof LocalPlayerEntity ? ((LocalPlayerEntity) player).networkHandler : null;
     }
+    */
 
     public static GameOptions getOptions()
     {
@@ -112,7 +114,9 @@ public class GameWrap
 
     public static void printToChat(String msg)
     {
+        /* TODO in-20100223
         getClient().gui.addChatMessage(msg);
+        */
     }
 
     public static void showHotbarMessage(String msg)
@@ -123,6 +127,7 @@ public class GameWrap
 
     public static boolean sendChatMessage(String command)
     {
+        /* TODO in-20100223
         InputPlayerEntity player = getClientPlayer();
 
         if (player != null)
@@ -130,6 +135,7 @@ public class GameWrap
             player.sendChat(command);
             return true;
         }
+        */
 
         return false;
     }
@@ -150,15 +156,21 @@ public class GameWrap
     @Nullable
     public static Entity getCameraEntity()
     {
+        /* TODO in-20100223
         Minecraft mc = getClient();
         Entity entity = mc.camera;
         return entity != null ? entity : mc.player;
+        */
+        return getClientPlayer();
     }
 
     public static String getPlayerName()
     {
+        /* TODO in-20100223
         PlayerEntity player = getClientPlayer();
         return player != null ? player.name : "?";
+        */
+        return "player";
     }
 
     public static HitResult getHitResult()
@@ -169,7 +181,7 @@ public class GameWrap
     public static long getCurrentWorldTick()
     {
         World world = getClientWorld();
-        return world != null ? world.getTime() : -1L;
+        return world != null ? world.time : -1L;
     }
 
     public static boolean isCreativeMode()
@@ -184,12 +196,18 @@ public class GameWrap
 
     public static int getVanillaOptionsScreenScale()
     {
+        /* TODO in-20100223
         return getOptions().guiScale;
+        */
+        return 2;
     }
 
     public static boolean isSinglePlayer()
     {
+        /* TODO in-20100223
         return getClientWorld() != null && getClient().isMultiplayer() == false;
+        */
+        return true;
     }
 
     public static boolean isUnicode()

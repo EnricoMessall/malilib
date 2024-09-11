@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -13,13 +12,14 @@ import net.minecraft.client.Minecraft;
 
 import malilib.input.InputDispatcherImpl;
 import malilib.input.KeyBindImpl;
-import malilib.input.Keys;
 import malilib.registry.Registry;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
 {
+    /*
     @Shadow boolean hasTakenScreenshot;
+    */
 
     @ModifyExpressionValue(method = "tick", remap = false,
                            at = @At(value = "INVOKE",
@@ -34,11 +34,13 @@ public abstract class MinecraftMixin
                 return true;
             }
 
+            /*
             // Key handled, and it was F2
             if (Keyboard.getEventKey() == Keys.KEY_F2)
             {
                 this.hasTakenScreenshot = true;
             }
+            */
 
             // When the dispatcher says to cancel further handling, fetch the next key
             // to prevent vanilla from handling the just handled key

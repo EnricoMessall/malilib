@@ -14,6 +14,7 @@ import net.minecraft.nbt.NbtLong;
 import net.minecraft.nbt.NbtShort;
 import net.minecraft.nbt.NbtString;
 
+import malilib.mixin.access.NbtDoubleMixin;
 import malilib.util.StringUtils;
 import malilib.util.data.Constants;
 import malilib.util.game.wrap.NbtWrap;
@@ -82,7 +83,7 @@ public abstract class BaseNbtStringifier
             case Constants.NBT.TAG_INT:     return String.valueOf(((NbtInt) tag).value);
             case Constants.NBT.TAG_LONG:    return String.valueOf(((NbtLong) tag).value);
             case Constants.NBT.TAG_FLOAT:   return String.valueOf(((NbtFloat) tag).value);
-            case Constants.NBT.TAG_DOUBLE:  return String.valueOf(((NbtDouble) tag).value);
+            case Constants.NBT.TAG_DOUBLE:  return String.valueOf(((NbtDoubleMixin) (Object) ((NbtDouble) tag)).getValue());
             case Constants.NBT.TAG_STRING:  return ((NbtString) tag).value;
         }
 

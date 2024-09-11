@@ -5,7 +5,7 @@ import com.google.common.base.Splitter;
 import net.minecraft.block.Block;
 import net.minecraft.block.LiquidSourceBlock;
 
-import malilib.util.StringUtils;
+import malilib.util.game.wrap.RegistryUtils;
 
 public class BlockUtils
 {
@@ -14,7 +14,10 @@ public class BlockUtils
 
     public static String getDisplayNameForBlock(Block block)
     {
+        /* TODO in-20100223
         return StringUtils.translate(block.getTranslationKey());
+        */
+        return RegistryUtils.getBlockIdStr(block);
     }
 
     /**

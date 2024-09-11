@@ -1,18 +1,7 @@
 package malilib.mixin.input;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import net.minecraft.client.gui.GuiElement;
-import net.minecraft.client.gui.screen.Screen;
-
-import malilib.input.InputDispatcherImpl;
-import malilib.registry.Registry;
-
+public abstract class ScreenMixin {
+/*
 @Mixin(Screen.class)
 public abstract class ScreenMixin extends GuiElement
 {
@@ -68,4 +57,5 @@ public abstract class ScreenMixin extends GuiElement
             ci.cancel();
         }
     }
+    */
 }

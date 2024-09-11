@@ -1,5 +1,6 @@
 package malilib.util.game.wrap;
 
+import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
 
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NbtShort;
 import net.minecraft.nbt.NbtString;
 
 import malilib.mixin.access.NbtCompoundMixin;
+import malilib.mixin.access.NbtDoubleMixin;
 import malilib.mixin.access.NbtListMixin;
 import malilib.util.data.Constants;
 
@@ -82,7 +84,7 @@ public class NbtWrap
 
     public static boolean contains(NbtCompound tag, String name, int typeId)
     {
-        NbtElement element = ((NbtCompoundMixin) tag).malilib_getTags().get(name);
+        NbtElement element = ((NbtCompoundMixin) (Object) tag).malilib_getTags().get(name);
         return element != null && element.getType() == typeId;
     }
 
@@ -128,7 +130,14 @@ public class NbtWrap
 
     public static double getDouble(NbtCompound tag, String name)
     {
-        return tag.getDouble(name);
+        Map<String, NbtElement> tags = ((NbtCompoundMixin) (Object) tag).malilib_getTags();
+
+        if (tags.containsKey(name) && tags.get(name).getType() == Constants.NBT.TAG_DOUBLE)
+        {
+            return ((NbtDoubleMixin) tags.get(name)).getValue();
+        }
+
+        return 0.0;
     }
 
     public static String getString(NbtCompound tag, String name)
@@ -171,7 +180,7 @@ public class NbtWrap
     @Nullable
     public static NbtElement getTag(NbtCompound tag, String name)
     {
-        return ((NbtCompoundMixin) tag).malilib_getTags().get(name);
+        return ((NbtCompoundMixin) (Object) tag).malilib_getTags().get(name);
     }
 
     public static boolean getBooleanOrDefault(NbtCompound tag, String name, boolean defaultValue)
@@ -216,7 +225,7 @@ public class NbtWrap
 
     public static String getCommandFeedbackName(NbtElement tag)
     {
-        return NbtElement.getName(getTypeId(tag));
+        return getName(getTypeId(tag));
     }
 
     public static byte getTypeId(NbtElement tag)
@@ -252,7 +261,9 @@ public class NbtWrap
 
     public static NbtDouble asDoubleTag(double value)
     {
-        return new NbtDouble(value);
+        NbtDouble tag = new NbtDouble();
+        ((NbtDoubleMixin) (Object) tag).setValue(value);
+        return tag;
     }
 
     public static NbtString asStringTag(String value)
@@ -292,7 +303,7 @@ public class NbtWrap
 
     public static void putDouble(NbtCompound tag, String name, double value)
     {
-        tag.putDouble(name, value);
+        ((NbtCompoundMixin) (Object) tag).malilib_getTags().put(name, asDoubleTag(value));
     }
 
     public static void putString(NbtCompound tag, String name, String value)
@@ -319,7 +330,7 @@ public class NbtWrap
 
     public static void remove(NbtCompound tag, String name)
     {
-        ((NbtCompoundMixin) tag).malilib_getTags().remove(name);
+        ((NbtCompoundMixin) (Object) tag).malilib_getTags().remove(name);
     }
 
     public static void addTag(NbtList listTag, NbtElement value)
@@ -329,7 +340,7 @@ public class NbtWrap
 
     public static Set<String> getKeys(NbtCompound tag)
     {
-        return ((NbtCompoundMixin) tag).malilib_getTags().keySet();
+        return ((NbtCompoundMixin) (Object) tag).malilib_getTags().keySet();
     }
 
     public static int getListSize(NbtList list)
@@ -339,7 +350,7 @@ public class NbtWrap
 
     public static int getListStoredType(NbtList listTag)
     {
-        return ((NbtListMixin) listTag).malilib_getContainedType();
+        return ((NbtListMixin) (Object) listTag).malilib_getContainedType();
     }
 
     public static NbtList getListOfCompounds(NbtCompound tag, String name)
@@ -349,7 +360,7 @@ public class NbtWrap
 
     public static double getDoubleAt(NbtList listTag, int index)
     {
-        return ((NbtDouble) listTag.get(index)).value;
+        return ((NbtDoubleMixin) (Object) ((NbtDouble) listTag.get(index))).getValue();
     }
 
     public static int getIntAt(NbtList listTag, int index)
@@ -373,4 +384,23 @@ public class NbtWrap
         return tag.m_4371252();//copy();
     }
     */
+
+    public static String getName(byte type)
+    {
+        switch(type)
+        {
+            case 0:  return "TAG_End";
+            case 1:  return "TAG_Byte";
+            case 2:  return "TAG_Short";
+            case 3:  return "TAG_Int";
+            case 4:  return "TAG_Long";
+            case 5:  return "TAG_Float";
+            case 6:  return "TAG_Double";
+            case 7:  return "TAG_Byte_Array";
+            case 8:  return "TAG_String";
+            case 9:  return "TAG_List";
+            case 10: return "TAG_Compound";
+            default: return "UNKNOWN";
+        }
+    }
 }

@@ -46,6 +46,8 @@ dependencies {
 }
 
 loom {
+	accessWidenerPath = file("src/main/resources/malilib.accesswidener")
+
 	decompilers {
 		vineflower {
 			options.put("ind", "	")

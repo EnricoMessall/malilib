@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 
 public class WorldWrap
 {
+    /*
     public static int getDimensionId(World world)
     {
         return world.dimension.id;
@@ -15,6 +16,7 @@ public class WorldWrap
     {
         return String.valueOf(world.dimension.id);
     }
+    */
 
     /**
      * Best name. Returns the integrated server world for the current dimension
@@ -37,12 +39,12 @@ public class WorldWrap
         return world;
     }
 
+    /*
     public static boolean isClientChunkLoaded(int chunkX, int chunkZ, World world)
     {
         return world.isChunkLoaded(chunkX << 4, 0, chunkZ << 4);
     }
 
-    /*
     public static void loadClientChunk(int chunkX, int chunkZ, World world)
     {
         //world.(chunkX, chunkZ);

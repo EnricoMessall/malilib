@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.SharedConstants;
-
 import malilib.MaLiLibConfigs;
 import malilib.config.value.HorizontalAlignment;
 import malilib.gui.BaseScreen;
@@ -632,7 +630,10 @@ public class BaseTextFieldWidget extends ContainerWidget
 
     public static boolean isAllowedCharacter(char c)
     {
+        /* TODO in-20100223
         return SharedConstants.VALID_CHAT_CHARACTERS.indexOf(c) >= 0;
+        */
+        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,.:-_'*!\"#%/()=+?[]{}<>".indexOf(c) >= 0;
     }
 
     protected void writeCharacter(char typedChar, int modifiers)

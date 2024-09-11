@@ -18,8 +18,8 @@ public class PlacementUtils
      */
     public static boolean isReplaceable(World world, BlockPos pos, boolean checkMaterial)
     {
-        Block block = Block.BY_ID[world.getBlock(pos.x, pos.y, pos.z) & 0xFF];
-        return block.material.isReplaceable();
+        Block block = Block.BY_ID[world.getBlockId(pos.x, pos.y, pos.z) & 0xFF];
+        return block.material.isSolid() == false && block.material.blocksMovement() == false;
     }
 
     /**

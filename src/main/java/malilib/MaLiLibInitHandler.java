@@ -2,7 +2,6 @@ package malilib;
 
 import malilib.config.BaseModConfig;
 import malilib.input.CustomHotkeyManager;
-import malilib.network.message.ConfigLockPacketHandler;
 import malilib.overlay.widget.ConfigStatusIndicatorContainerWidget;
 import malilib.registry.Registry;
 import malilib.render.text.TextRenderer;
@@ -27,6 +26,8 @@ public class MaLiLibInitHandler
         MaLiLibConfigInit.init();
         MaLiLibActions.init();
 
+        /*
         ConfigLockPacketHandler.updateRegistration(true);
+        */
     }
 }

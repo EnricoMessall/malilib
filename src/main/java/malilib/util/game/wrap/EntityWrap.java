@@ -1,6 +1,7 @@
 package malilib.util.game.wrap;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.living.LivingEntity;
 import net.minecraft.entity.living.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
@@ -34,9 +35,24 @@ public class EntityWrap
         return new Vec3d(getX(entity), getY(entity), getZ(entity));
     }
 
+    public static float getEyeHeight(Entity entity)
+    {
+        float eyeHeight = 0.0F;
+
+        if (entity instanceof PlayerEntity)
+        {
+            eyeHeight = 0.12F;
+        }
+        else if (entity instanceof LivingEntity)
+        {
+            eyeHeight = 0.85F * entity.height;
+        }
+
+        return eyeHeight;
+    }
     public static Vec3d getEntityEyePos(Entity entity)
     {
-        return new Vec3d(getX(entity), getY(entity) + entity.getEyeHeight(), getZ(entity));
+        return new Vec3d(getX(entity), getY(entity) + getEyeHeight(entity), getZ(entity));
     }
 
     public static BlockPos getEntityBlockPos(Entity entity)
@@ -51,17 +67,17 @@ public class EntityWrap
         return MathUtils.getRotationVector(getYaw(entity), getPitch(entity)).scale(range);
     }
 
-    public static double getX(Entity entity)
+    public static float getX(Entity entity)
     {
         return entity.x;
     }
 
-    public static double getY(Entity entity)
+    public static float getY(Entity entity)
     {
         return entity.y;
     }
 
-    public static double getZ(Entity entity)
+    public static float getZ(Entity entity)
     {
         return entity.z;
     }

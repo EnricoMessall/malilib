@@ -15,10 +15,11 @@ public class EquipmentInventoryView implements InventoryView
      * This is to make the InventoryRenderDefinitions a bit simpler, so that they can go from top down.
      */
     public static final ImmutableList<Function<PlayerEntity, ItemStack>> SLOT_FETCHERS
-            = ImmutableList.of((e) -> e.inventory.getArmor(0), // TODO b1.7.3 which is the correct order?
-                               (e) -> e.inventory.getArmor(1),
-                               (e) -> e.inventory.getArmor(2),
-                               (e) -> e.inventory.getArmor(3),
+            // TODO in-20100223 which is the correct order?
+            = ImmutableList.of((e) -> e.inventory.armorSlots[0],
+                               (e) -> e.inventory.armorSlots[1],
+                               (e) -> e.inventory.armorSlots[2],
+                               (e) -> e.inventory.armorSlots[3],
                                (e) -> e.inventory.getMainHandStack());
 
     protected final PlayerEntity entity;

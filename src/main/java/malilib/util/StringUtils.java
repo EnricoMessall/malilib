@@ -1,9 +1,5 @@
 package malilib.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -12,32 +8,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javax.annotation.Nullable;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.metadata.ModMetadata;
-import net.ornithemc.osl.resource.loader.api.ModTexturePack;
-import net.ornithemc.osl.resource.loader.impl.ResourceLoader;
 
-import net.minecraft.client.network.handler.ClientNetworkHandler;
-import net.minecraft.network.Connection;
-import net.minecraft.resource.language.I18n;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.WorldStorage;
 
 import malilib.MaLiLib;
 import malilib.MaLiLibConfigs;
-import malilib.mixin.access.ClientNetworkHandlerMixin;
-import malilib.mixin.access.ConnectionMixin;
-import malilib.mixin.access.WorldMixin;
 import malilib.registry.Registry;
 import malilib.util.data.Identifier;
 import malilib.util.data.LeftRight;
 import malilib.util.game.wrap.GameWrap;
-import malilib.util.game.wrap.WorldWrap;
+import malilib.util.text.LanguageManager;
 
 public class StringUtils
 {
@@ -494,6 +479,7 @@ public class StringUtils
     {
         if (GameWrap.isSinglePlayer() && GameWrap.getClientWorld() != null)
         {
+            /* TODO in-20100223
             WorldStorage storage = ((WorldMixin) GameWrap.getClientWorld()).malilib_getWorldStorage();
             File file = storage.getDataFile("foo");
 
@@ -501,7 +487,9 @@ public class StringUtils
             {
                 return file.getParentFile().getParent();
             }
+            */
         }
+        /*
         else
         {
             ClientNetworkHandler handler = GameWrap.getNetworkConnection();
@@ -522,6 +510,7 @@ public class StringUtils
                 }
             }
         }
+        */
 
         return null;
     }
@@ -550,7 +539,7 @@ public class StringUtils
 
                 if (world != null)
                 {
-                    name = prefix + name + "_dim" + WorldWrap.getDimensionIdAsString(world);
+                    name = prefix + name;
                 }
             }
         }
@@ -649,7 +638,8 @@ public class StringUtils
                 }
             }
 
-            return I18n.translate(translationKey, args);
+            //return I18n.translate(translationKey, args);
+            return LanguageManager.INSTANCE.translate(translationKey, args);
         }
         catch (Exception e)
         {
@@ -659,7 +649,8 @@ public class StringUtils
 
     public static boolean hasTranslation(String translationKey)
     {
-        return I18n.translate(translationKey).equals(translationKey) == false;
+        //I18n.translate(translationKey).equals(translationKey) == false;
+        return LanguageManager.INSTANCE.hasTranslation(translationKey);
     }
 
     public static String stripVanillaFormattingCodes(String str)
@@ -668,6 +659,7 @@ public class StringUtils
         return str;
     }
 
+    /* TODO in-20100223
     public static void loadLowerCaseLangFile(Properties translationsOut)
     {
         for (ModTexturePack pack : ResourceLoader.getDefaultModResourcePacks())
@@ -705,6 +697,7 @@ public class StringUtils
         }
         catch (Exception ignore) {}
     }
+    */
 
     /**
      * Just a wrapper to get the font height from the Font/TextRenderer

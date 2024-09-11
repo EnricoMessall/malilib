@@ -1,7 +1,5 @@
 package malilib.util.position;
 
-import javax.annotation.Nullable;
-
 import malilib.util.MathUtils;
 
 public class BlockPos extends Vec3i
@@ -126,6 +124,7 @@ public class BlockPos extends Vec3i
         return new BlockPos(MathUtils.floor(x), MathUtils.floor(y), MathUtils.floor(z));
     }
 
+    /*
     @Nullable
     public static BlockPos of(@Nullable net.minecraft.util.math.BlockPos pos)
     {
@@ -136,6 +135,7 @@ public class BlockPos extends Vec3i
 
         return new BlockPos(pos.x, pos.y, pos.z);
     }
+    */
 
     public static class MutBlockPos extends BlockPos
     {

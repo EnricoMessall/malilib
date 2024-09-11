@@ -3,8 +3,6 @@ package malilib.util.game.wrap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
-import malilib.util.StringUtils;
-
 public class ItemWrap
 {
     public static final ItemStack EMPTY_STACK = null;
@@ -42,11 +40,14 @@ public class ItemWrap
         if (ItemWrap.notEmpty(stack))
         {
             String id = RegistryUtils.getItemIdStr(stack.getItem());
+            return String.format("id: %s", id);
+            /* TODO in-20100223
             NbtCompound tag = null; //getTag(stack);
 
             return String.format("[%s @ %d - display: %s - NBT: %s] (%s)",
                                  id != null ? id : "null", stack.getMetadata(), StringUtils.translate(stack.getTranslationKey()),
                                  tag != null ? tag.toString() : "<no NBT>", stack);
+            */
         }
 
         return "<empty>";

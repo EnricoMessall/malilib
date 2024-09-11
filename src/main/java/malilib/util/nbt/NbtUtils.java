@@ -14,9 +14,9 @@ import java.util.function.Function;
 import java.util.zip.GZIPOutputStream;
 import javax.annotation.Nullable;
 
+import net.minecraft.client.gui.screen.LoadingScreenRenderer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtList;
 
 import malilib.MaLiLib;
@@ -244,7 +244,8 @@ public class NbtUtils
 
         try (InputStream is = Files.newInputStream(file))
         {
-            return NbtIo.readCompressed(is);
+            //return NbtIo.readCompressed(is);
+            return LoadingScreenRenderer.m_3357503(is);
         }
         catch (Exception e)
         {

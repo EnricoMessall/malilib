@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.player.PlayerEntity;
@@ -388,12 +387,10 @@ public class InventoryRenderUtils
         {
             return BuiltinInventoryRenderDefinitions.BREWING_STAND;
         }
-        */
         else if (inv instanceof DispenserBlockEntity) // this includes the Dropper as a sub class
         {
             return BuiltinInventoryRenderDefinitions.DROPPER;
         }
-        /*
         else if (inv instanceof TileEntityHopper)
         {
             return BuiltinInventoryRenderDefinitions.HOPPER;

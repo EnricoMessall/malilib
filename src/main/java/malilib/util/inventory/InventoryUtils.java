@@ -1,19 +1,13 @@
 package malilib.util.inventory;
 
-import java.util.List;
-import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
-import net.minecraft.entity.living.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.menu.InventoryMenu;
-import net.minecraft.inventory.menu.PlayerMenu;
 import net.minecraft.inventory.slot.InventorySlot;
 import net.minecraft.item.ItemStack;
 
-import malilib.util.data.IntRange;
 import malilib.util.data.ItemType;
 import malilib.util.game.wrap.GameWrap;
 import malilib.util.game.wrap.ItemWrap;
@@ -30,7 +24,7 @@ public class InventoryUtils
         if (stack1 == null || stack2 == null || stack1.getItem() != stack2.getItem())
             return false;
 
-        return stack1.isDamageable() || stack1.getMetadata() == stack2.getMetadata();
+        return stack1.getMaxDamage() > 0 || stack1.metadata == stack2.metadata;
     }
 
     /**
@@ -43,8 +37,7 @@ public class InventoryUtils
         if (stack1 == null || stack2 == null)
             return false;
 
-        // This checks the item id and metadata
-        return stack1.matchesItem(stack2);
+        return stack1.getItem() == stack2.getItem() && stack1.metadata == stack2.metadata;
     }
 
     /**
@@ -73,11 +66,13 @@ public class InventoryUtils
         return areItemsEqualIgnoreDurability(stack1, stack2);
     }
 
+    /* TODO in-20100223
     public static ItemStack getCursorStack()
     {
         PlayerInventory inv = GameWrap.getPlayerInventory();
         return inv != null ? inv.getCursorStack() : ItemWrap.EMPTY_STACK;
     }
+    */
 
     public static boolean isHotbarSlot(int slot)
     {
@@ -109,11 +104,13 @@ public class InventoryUtils
      * 
      * Swaps the stack from the slot <b>slotNum</b> to the given hotbar slot <b>hotbarSlot</b>
      */
+    /* TODO in-20100223
     public static void swapSlots(InventoryMenu container, int slotNum, int hotbarSlot)
     {
         // TODO b1.7.3
         //clickSlot(container, slotNum, hotbarSlot, ClickType.SWAP);
     }
+    */
 
     /**
      * Assuming that the slot is from the ContainerPlayer container,
@@ -137,9 +134,10 @@ public class InventoryUtils
 
     public static int getSlotId(InventorySlot slot)
     {
-        return slot.id;
+        return slot.slot;
     }
 
+    /* TODO in-20100223
     public static int getSlotCount(InventoryMenu container)
     {
         return container.slots.size();
@@ -150,6 +148,7 @@ public class InventoryUtils
     {
         return (List<InventorySlot>) container.slots;
     }
+    */
 
     /**
      * Finds an empty slot in the player inventory.
@@ -157,6 +156,7 @@ public class InventoryUtils
      * The <b>allowOffhand</b> argument defines whether the offhand slot is valid.
      * @return the slot number, or -1 if none were found
      */
+    /* TODO in-20100223
     public static int findEmptySlotInPlayerInventory(InventoryMenu containerPlayer,
                                                      boolean allowOffhand,
                                                      boolean reverseIteration)
@@ -167,6 +167,7 @@ public class InventoryUtils
 
         return getSlotNumberOrDefault(findSlot(containerPlayer, slotTest, reverseIteration), -1);
     }
+    */
 
     /**
      * Finds a slot with an identical item to <b>stackReference</b> from the regular player inventory,
@@ -175,12 +176,14 @@ public class InventoryUtils
      * @param reverseIteration if true, then the slots are iterated in reverse order
      * @return the slot number, or -1 if none were found
      */
+    /* TODO in-20100223
     public static int findPlayerInventorySlotWithItem(InventoryMenu container,
                                                       ItemStack stackReference,
                                                       boolean reverseIteration)
     {
         return findPlayerInventorySlotWithItem(container, stackReference, false, reverseIteration);
     }
+    */
 
     /**
      * Finds a slot with an identical item to <b>stackReference</b> from the regular player inventory,
@@ -189,6 +192,7 @@ public class InventoryUtils
      * @param reverse if true, then the slots are iterated in reverse order
      * @return the slot number, or -1 if none were found
      */
+    /* TODO in-20100223
     public static int findPlayerInventorySlotWithItem(InventoryMenu container,
                                                       ItemStack stackReference,
                                                       boolean ignoreNbt,
@@ -204,6 +208,7 @@ public class InventoryUtils
 
         return getSlotNumberOrDefault(findSlot(container, slotTest, reverse), -1);
     }
+    */
 
     /*
      * 
@@ -243,6 +248,7 @@ public class InventoryUtils
      * matches are found, then null is returned.
      * @return the first slot that passes the test, or null
      */
+    /* TODO in-20100223
     @Nullable
     public static InventorySlot findSlot(InventoryMenu container,
                                 Predicate<InventorySlot> slotTest,
@@ -265,11 +271,13 @@ public class InventoryUtils
 
         return null;
     }
+    */
 
     /**
      * Tries to find a slot with the given item for pick-blocking.
      * Prefers the hotbar to the rest of the inventory.
      */
+    /* TODO in-20100223
     public static int findSlotWithItemToPickBlock(InventoryMenu container,
                                                   ItemStack stackReference,
                                                   boolean ignoreNbt)
@@ -319,6 +327,7 @@ public class InventoryUtils
 
         return -1;
     }
+    */
 
     /**
      * Swap the given item to the player's main hand, if that item is found in the player's inventory.
@@ -335,6 +344,7 @@ public class InventoryUtils
      */
     public static boolean swapItemToMainHand(ItemStack stackReference, boolean ignoreNbt)
     {
+        /* TODO in-20100223
         PlayerEntity player = GameWrap.getClientPlayer();
 
         // Already holding the requested item
@@ -344,6 +354,7 @@ public class InventoryUtils
         }
 
         int currentHotbarSlot = getSelectedHotbarSlot();
+        */
 
         /*
         if (GameUtils.isCreativeMode())
@@ -355,6 +366,7 @@ public class InventoryUtils
         }
         else
         */
+        /* TODO in-20100223
         {
             int slot = findPlayerInventorySlotWithItem(GameWrap.getPlayerInventoryContainer(), stackReference, true);
 
@@ -364,6 +376,7 @@ public class InventoryUtils
                 return true;
             }
         }
+        */
 
         return false;
     }
@@ -373,6 +386,7 @@ public class InventoryUtils
      * @param threshold the number of items at or below which the re-stocking will happen
      * @param allowHotbar whether to allow taking items from other hotbar slots
      */
+    /* TODO in-20100223
     public static void preRestockHand(PlayerEntity player,
                                       int threshold,
                                       boolean allowHotbar)
@@ -422,6 +436,7 @@ public class InventoryUtils
         }
 
     }
+    */
 
     /* TODO
     public static InventoryView getCompactedStoredItemsView(ItemStack stackIn)
@@ -483,6 +498,7 @@ public class InventoryUtils
         return map;
     }
 
+    /* TODO in-20100223
     public static void clickSlot(InventoryMenu container, InventorySlot slot, int mouseButton, boolean quickMove)
     {
         clickSlot(container, getSlotId(slot), mouseButton, quickMove);
@@ -495,4 +511,5 @@ public class InventoryUtils
             GameWrap.clickSlot(container.networkId, slotNum, mouseButton, quickMove);
         }
     }
+    */
 }

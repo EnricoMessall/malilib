@@ -76,8 +76,8 @@ public class HitResult
 
         switch (trace.type)
         {
-            case BLOCK:     return block(new BlockPos(trace.x, trace.y, trace.z), Direction.byIndex(trace.face), Vec3d.of(trace.offset));
-            case ENTITY:    return entity(trace.entity, Vec3d.of(trace.offset));
+            case 0:    return block(new BlockPos(trace.x, trace.y, trace.z), Direction.byIndex(trace.face), Vec3d.of(trace.offset));
+            case 1:    return entity(trace.entity, Vec3d.of(trace.offset));
             default:
                 return miss();
         }

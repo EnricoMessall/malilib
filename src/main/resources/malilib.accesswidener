@@ -1,0 +1,5 @@
+accessWidener v2 named
+
+extendable	method	net/minecraft/client/gui/screen/Screen	init			(Lnet/minecraft/client/Minecraft;II)V
+extendable	method	net/minecraft/client/gui/screen/Screen	handleMouse		()V
+extendable	method	net/minecraft/client/gui/screen/Screen	handleKeyboard	()V

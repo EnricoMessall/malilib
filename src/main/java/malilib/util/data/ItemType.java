@@ -29,7 +29,8 @@ public class ItemType
 
     public ItemType(ItemStack stack, boolean copy, boolean ignoreDamage, boolean checkNbt)
     {
-        this.stack = ItemWrap.isEmpty(stack) ? ItemWrap.EMPTY_STACK : (copy ? stack.copy() : stack);
+        this.stack = ItemWrap.isEmpty(stack) ? ItemWrap.EMPTY_STACK :
+                     (copy ? new ItemStack(stack.itemId, stack.size, stack.metadata) : stack);
         this.ignoreDamage = ignoreDamage;
         this.checkNbt = checkNbt;
         this.hashCode = this.calculateHashCode();
@@ -66,9 +67,9 @@ public class ItemType
             result = prime * result + this.stack.getItem().hashCode();
         }
 
-        if (this.ignoreDamage == false || this.stack.isDamageable() == false)
+        if (this.ignoreDamage == false || this.stack.getMaxDamage() == 0)
         {
-            result = prime * result + this.stack.getMetadata();
+            result = prime * result + this.stack.metadata;
         }
 
         /*
@@ -105,8 +106,8 @@ public class ItemType
                 return false;
             }
 
-            if ((this.ignoreDamage == false || this.stack.isDamageable() == false) &&
-                this.stack.getMetadata() != other.stack.getMetadata())
+            if ((this.ignoreDamage == false || this.stack.getMaxDamage() == 0) &&
+                this.stack.metadata != other.stack.metadata)
             {
                 return false;
             }
@@ -131,7 +132,8 @@ public class ItemType
             return (id != null ? id : "<null>") + "@" + this.stack.getMetadata();
         }
         */
-        Item item = this.stack.getItem();;
-        return this.stack != null ? String.format("%s [id: %d]", item.getTranslationKey(), item.id)  : "<null>";
+        Item item = this.stack.getItem();
+        // TODO in-20100223
+        return this.stack != null ? String.format("[id: %d]", item.id)  : "<null>";
     }
 }

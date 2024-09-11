@@ -4,19 +4,14 @@
 	"compatibilityLevel": "JAVA_8",
 	"minVersion": "0.8",
 	"client": [
-		"access.ClientNetworkHandlerMixin",
-		"access.ConnectionMixin",
-		"access.LanguageManagerMixin",
 		"access.MinecraftMixin",
 		"access.NbtCompoundMixin",
+		"access.NbtDoubleMixin",
 		"access.NbtElementMixin",
 		"access.NbtListMixin",
-		"access.WorldMixin",
 		"event.MinecraftMixin",
-		"fix.LanguageManagerMixin",
 		"fix.TextureManagerMixin",
 		"input.MinecraftMixin",
-		"input.ScreenMixin",
 		"render.GameRendererMixin"
 	],
 	"injectors": {

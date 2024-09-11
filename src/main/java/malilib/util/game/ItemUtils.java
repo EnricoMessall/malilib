@@ -2,13 +2,16 @@ package malilib.util.game;
 
 import net.minecraft.item.Item;
 
-import malilib.util.StringUtils;
+import malilib.util.game.wrap.RegistryUtils;
 
 public class ItemUtils
 {
     public static String getDisplayNameForItem(Item item)
     {
+        /* TODO in-20100223
         return StringUtils.translate(item.getTranslationKey());
+        */
+        return RegistryUtils.getItemIdStr(item);
     }
 
     /* TODO b1.7.3

@@ -25,6 +25,8 @@
 		]
 	},
 
+	"accessWidener" : "malilib.accesswidener",
+
 	"mixins": [
 		{
 			"config": "mixins.malilib.json",
@@ -33,8 +35,6 @@
 	],
 
 	"depends": {
-		"minecraft": "1.0.0-beta.7.3",
-		"osl-entrypoints": "*",
-		"osl-resource-loader": "*"
+		"minecraft": "1.0.0-in-20100223"
 	}
 }

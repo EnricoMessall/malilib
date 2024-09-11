@@ -155,7 +155,7 @@ public class PositionUtils
         }
 
         double width = entity.width;
-        y = Math.floor(y + entity.getEyeHeight());
+        y = Math.floor(y + EntityWrap.getEyeHeight(entity));
 
         switch (EntityWrap.getClosestHorizontalLookingDirection(entity))
         {

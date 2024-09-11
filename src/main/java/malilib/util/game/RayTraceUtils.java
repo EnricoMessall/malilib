@@ -1,5 +1,6 @@
 package malilib.util.game;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -40,10 +41,12 @@ public class RayTraceUtils
 
         if (includeEntities)
         {
-            Box bb = entity.shape
-                                .expand(rangedLook.x, rangedLook.y, rangedLook.z).expand(1.0, 1.0, 1.0);
+            Box bb = entity.shape.expand((float) rangedLook.x, (float) rangedLook.y, (float) rangedLook.z).expand(1.0F, 1.0F, 1.0F);
+            List<Entity> list = new ArrayList<>();
+            /* TODO in-20100223
             @SuppressWarnings("unchecked")
             List<Entity> list = (List<Entity>) world.getEntities(entity, bb);
+            */
 
             double closest = result != null && result.type == HitResult.Type.BLOCK ?
                                      eyesPos.squareDistanceTo(result.pos) : Double.MAX_VALUE;

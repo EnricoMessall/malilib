@@ -8,6 +8,6 @@ import net.minecraft.client.Minecraft;
 @Mixin(Minecraft.class)
 public interface MinecraftMixin
 {
-    @Accessor("INSTANCE")
-    static Minecraft malilib_getMinecraft() { return null; };
+    @Accessor("running")
+    void setRunning(boolean running);
 }

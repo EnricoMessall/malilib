@@ -41,7 +41,7 @@ public class ItemRenderUtils
         // but carpets actually need around -143 to not clip the back corner.
         itemRenderer.zLevel = z - 142f;
         */
-        itemRenderer.renderGuiItemWithEnchantmentGlint(mc.textRenderer, mc.textureManager, stack, 0, 0);
+        itemRenderer.renderGuiItem(mc.textureManager, stack, 0, 0);
         /*
         itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, stack, 0, 0, null);
         itemRenderer.zLevel = oldZ;

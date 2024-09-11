@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.Minecraft;
@@ -19,13 +18,11 @@ public abstract class GameRendererMixin
 {
     @Shadow private Minecraft minecraft;
 
-    @Inject(method = "renderWorld",
-            slice = @Slice(from = @At(value = "INVOKE",
-                                      target = "Lnet/minecraft/client/render/world/WorldRenderer;renderClouds(F)V")),
+    @Inject(method = "m_5195666",
             at = @At(value = "INVOKE", shift = Shift.AFTER,
-                     target = "Lnet/minecraft/client/render/GameRenderer;renderFog(IF)V"
+                     target = "Lnet/minecraft/client/render/world/WorldRenderer;m_7874783()V"
         ))
-    private void onRenderWorldLast(float tickDelta, long renderTimeLimit, CallbackInfo ci)
+    private void onRenderWorldLast(float tickDelta, CallbackInfo ci)
     {
         if (this.minecraft.world != null && this.minecraft.player != null)
         {
@@ -33,19 +30,19 @@ public abstract class GameRendererMixin
         }
     }
 
-    @Inject(method = "render", at = @At(
+    @Inject(method = "m_8576613", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/GameGui;render(FZII)V",
+            target = "Lnet/minecraft/client/gui/GameGui;render(F)V",
             shift = Shift.AFTER))
     private void onRenderGameOverlayPost(float tickDelta, CallbackInfo ci)
     {
-        if (this.minecraft.world != null && this.minecraft.player != null)
+        if (this.minecraft.player != null)
         {
             ((RenderEventDispatcherImpl) Registry.RENDER_EVENT_DISPATCHER).onRenderGameOverlayPost();
         }
     }
 
-    @Inject(method = "render", at = @At(
+    @Inject(method = "m_8576613", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/screen/Screen;render(IIF)V",
             shift = Shift.AFTER))

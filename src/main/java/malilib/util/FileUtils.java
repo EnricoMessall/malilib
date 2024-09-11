@@ -16,8 +16,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
-import net.ornithemc.osl.resource.loader.api.ModTexturePack;
-import net.ornithemc.osl.resource.loader.impl.ResourceLoader;
 
 import net.minecraft.client.Minecraft;
 
@@ -35,7 +33,7 @@ public class FileUtils
 
     public static Path getMinecraftDirectory()
     {
-        return Minecraft.getRunDirectory().toPath();
+        return GameWrap.getClient().runDir.toPath();
     }
 
     public static Path getRootDirectory()
@@ -737,6 +735,7 @@ public class FileUtils
     @Nullable
     public static InputStream openModResource(String modId, String path)
     {
+        /* TODO in-20100223
         for (ModTexturePack pack : ResourceLoader.getDefaultModResourcePacks())
         {
             if (pack.getModMetadata().getId().equals(modId))
@@ -744,13 +743,17 @@ public class FileUtils
                 return pack.getResource(path);
             }
         }
+        */
 
-        return null;
+        return MaLiLib.class.getResourceAsStream(String.format("/assets/%s/%s", modId, path));
     }
 
     @Nullable
     public static InputStream openVanillaResource(String path)
     {
+        /* TODO in-20100223
         return GameWrap.getClient().texturePacks.selected.getResource(path);
+        */
+        return Minecraft.class.getResourceAsStream(path);
     }
 }

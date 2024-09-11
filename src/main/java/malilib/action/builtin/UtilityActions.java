@@ -7,11 +7,8 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
-import net.minecraft.client.util.ScreenshotUtils;
 import net.minecraft.entity.living.player.PlayerEntity;
-import net.minecraft.locale.LanguageManager;
 
 import malilib.MaLiLib;
 import malilib.action.ActionContext;
@@ -20,10 +17,9 @@ import malilib.config.ConfigManagerImpl;
 import malilib.config.ModConfig;
 import malilib.config.category.ConfigOptionCategory;
 import malilib.config.option.ConfigOption;
-import malilib.gui.BaseScreen;
 import malilib.gui.util.GuiUtils;
 import malilib.input.ActionResult;
-import malilib.mixin.access.LanguageManagerMixin;
+import malilib.mixin.access.MinecraftMixin;
 import malilib.overlay.message.MessageDispatcher;
 import malilib.registry.Registry;
 import malilib.util.MathUtils;
@@ -34,6 +30,7 @@ import malilib.util.datadump.DataDump.Format;
 import malilib.util.game.wrap.EntityWrap;
 import malilib.util.game.wrap.GameWrap;
 import malilib.util.inventory.InventoryUtils;
+import malilib.util.text.LanguageManager;
 
 public class UtilityActions
 {
@@ -67,12 +64,12 @@ public class UtilityActions
 
                 if (args.length == 2)
                 {
-                    double fx = Math.abs(Double.parseDouble(args[0])) % 1.0;
-                    double fz = Math.abs(Double.parseDouble(args[1])) % 1.0;
-                    double px = MathUtils.floor(EntityWrap.getX(player));
-                    double pz = MathUtils.floor(EntityWrap.getZ(player));
-                    double x = px < 0.0 ? px + 1.0 - fx : px + fx;
-                    double z = pz < 0.0 ? pz + 1.0 - fz : pz + fz;
+                    float fx = Math.abs(Float.parseFloat(args[0])) % 1.0F;
+                    float fz = Math.abs(Float.parseFloat(args[1])) % 1.0F;
+                    float px = MathUtils.floor(EntityWrap.getX(player));
+                    float pz = MathUtils.floor(EntityWrap.getZ(player));
+                    float x = px < 0.0F ? px + 1.0F - fx : px + fx;
+                    float z = pz < 0.0F ? pz + 1.0F - fz : pz + fz;
                     // TODO b1.7.3 is this the correct method?
                     player.refreshPositionAndAngles(x, EntityWrap.getY(player), z,
                                                     EntityWrap.getYaw(player), EntityWrap.getPitch(player));
@@ -138,19 +135,19 @@ public class UtilityActions
 
     public static ActionResult toggleF3Screen(ActionContext ctx)
     {
+        /*
         if (ctx.getWorld() != null)
         {
             GameWrap.getOptions().debugProfilerEnabled = ! GameWrap.getOptions().debugProfilerEnabled;
 
-            /*
             if (GameUtils.getOptions().showDebugInfo == false)
             {
                 GameWrap.getOptions().showDebugProfilerChart = false;
                 GameWrap.getOptions().showLagometer = false;
             }
-            */
             return ActionResult.SUCCESS;
         }
+        */
         return ActionResult.FAIL;
     }
 
@@ -220,17 +217,21 @@ public class UtilityActions
 
     public static ActionResult takeScreenshot(ActionContext ctx)
     {
+        /* TODO in-20100223
         Minecraft mc = ctx.getClient();
         GameWrap.printToChat(ScreenshotUtils.saveScreenshot(Minecraft.getRunDirectory(), mc.width, mc.height));
+        */
         return ActionResult.SUCCESS;
     }
 
     public static ActionResult dropOneItem(ActionContext ctx)
     {
+        /* TODO in-20100223
         if (ctx.getPlayer() != null) // && ctx.getPlayer().isSpectator() == false)
         {
             ctx.getPlayer().dropItem();
         }
+        */
         return ActionResult.SUCCESS;
     }
 
@@ -371,7 +372,7 @@ public class UtilityActions
     {
         if (GuiUtils.getCurrentScreen() instanceof GameMenuScreen)
         {
-            ctx.getClient().scheduleStop();
+            ((MinecraftMixin) (Object) ctx.getClient()).setRunning(false);
             return ActionResult.SUCCESS;
         }
 
@@ -380,21 +381,28 @@ public class UtilityActions
 
     public static ActionResult openChat(ActionContext ctx)
     {
+        /* TODO in-20100223
         BaseScreen.openScreen(new ChatScreen());
+        */
         return ActionResult.SUCCESS;
     }
 
     public static ActionResult reloadModLanguages(ActionContext ctx)
     {
+        /* TODO in-20100223
         StringUtils.loadLowerCaseLangFile(((LanguageManagerMixin) LanguageManager.getInstance()).malilib_getProperties());
+        */
+        LanguageManager.INSTANCE.reload();
         MessageDispatcher.generic("malilib.message.info.utility_actions.mod_languages_reloaded");
         return ActionResult.SUCCESS;
     }
 
     public static ActionResult reloadTextures(ActionContext ctx)
     {
+        /* TODO in-20100223
         ctx.getClient().textureManager.reload();
         MessageDispatcher.generic("malilib.message.info.utility_actions.textures_reloaded");
+        */
         return ActionResult.SUCCESS;
     }
 

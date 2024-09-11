@@ -24,8 +24,6 @@ import malilib.input.HotkeyManagerImpl;
 import malilib.input.InputDispatcher;
 import malilib.input.InputDispatcherImpl;
 import malilib.interoperation.BlockPlacementPositionHandler;
-import malilib.network.ClientPacketChannelHandler;
-import malilib.network.ClientPacketChannelHandlerImpl;
 import malilib.overlay.InfoOverlay;
 import malilib.overlay.InfoWidgetManager;
 import malilib.overlay.InfoWidgetRegistry;
@@ -58,7 +56,9 @@ public class Registry
 
     // Event dispatchers and handlers
     public static final BlockPlacementPositionHandler BLOCK_PLACEMENT_POSITION_HANDLER = new BlockPlacementPositionHandler();
+    /*
     public static final ClientPacketChannelHandler CLIENT_PACKET_CHANNEL_HANDLER = new ClientPacketChannelHandlerImpl();
+    */
     public static final ClientWorldChangeEventDispatcher CLIENT_WORLD_CHANGE_EVENT_DISPATCHER = new ClientWorldChangeEventDispatcherImpl();
     public static final InitializationDispatcher INITIALIZATION_DISPATCHER = new InitializationDispatcherImpl();
     public static final InputDispatcher INPUT_DISPATCHER = new InputDispatcherImpl();

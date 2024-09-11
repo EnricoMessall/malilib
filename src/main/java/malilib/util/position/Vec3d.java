@@ -87,7 +87,7 @@ public class Vec3d
 
     public net.minecraft.util.math.Vec3d toVanilla()
     {
-        return net.minecraft.util.math.Vec3d.of(this.x, this.y, this.z);
+        return new net.minecraft.util.math.Vec3d((float) this.x, (float) this.y, (float) this.z);
     }
 
     /*

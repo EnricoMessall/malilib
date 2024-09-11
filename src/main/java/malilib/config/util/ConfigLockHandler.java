@@ -214,10 +214,14 @@ public class ConfigLockHandler
     protected void readLocksFromSinglePlayerWorldConfig()
     {
         Path worldDir = GameWrap.getCurrentSinglePlayerWorldDirectory();
-        String fileName = "malilib_config_locks.json";
-        Path file = worldDir.resolve(fileName);
 
-        this.readLockConfigFromFile(file);
+        if (worldDir != null)
+        {
+            String fileName = "malilib_config_locks.json";
+            Path file = worldDir.resolve(fileName);
+
+            this.readLockConfigFromFile(file);
+        }
     }
 
     protected void readLocksFromLocalPerWorldConfig()
