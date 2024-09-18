@@ -24,10 +24,10 @@ public abstract class MixinInGameHud {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(CallbackInfo info) {
-        this.layeredDrawer.addLayer(this::renderChatOverwrite);
+        this.layeredDrawer.addLayer(this::renderGameOverlayPost);
     }
 
-    private void renderChatOverwrite(DrawContext context, RenderTickCounter tickCounter) {
+    private void renderGameOverlayPost(DrawContext context, RenderTickCounter tickCounter) {
         ((RenderEventHandler) RenderEventHandler.getInstance()).onRenderGameOverlayPost(context, this.client, tickCounter.getTickDelta(false));
     }
 }
